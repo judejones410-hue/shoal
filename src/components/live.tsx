@@ -159,36 +159,39 @@ export function MandateWriter() {
     ["Can withdraw to", "Your wallet only"],
   ];
   return (
-    <div className="grid gap-px bg-faint/40 md:grid-cols-2">
-      <label className="block bg-ink p-6 md:p-8">
+    <div className="grid items-center gap-14 md:grid-cols-[1fr_1.1fr]">
+      <label className="block">
         <span className="label">Write the current, in plain words</span>
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
-          rows={5}
-          className="mt-4 w-full resize-none bg-transparent font-serif text-2xl leading-snug font-light text-paper outline-none placeholder:text-faint"
+          rows={4}
+          className="mt-3 w-full resize-none border-b border-glow/40 bg-transparent pb-3 font-serif text-[1.7rem] leading-snug font-light text-paper outline-none placeholder:text-faint focus:border-glow"
           placeholder="Swim with 500 SOL in memecoins…"
         />
-        <span className="mt-4 block text-sm text-faint">
-          Try: “200 SOL in meme coins, stop below 150”
+        <span className="label mt-4 block text-faint">
+          try “200 SOL in meme coins, stop below 150”
         </span>
       </label>
-      <div className="bg-deep p-6 md:p-8">
-        <div className="flex items-baseline justify-between">
-          <span className="label">What the Driftling hears</span>
-          <span className="label text-glow">● preview</span>
+
+      <div className="relative mx-auto w-full max-w-[460px]">
+        {/* little bubbles trailing off the big one */}
+        <span className="bubble rise absolute -top-6 left-6 size-6 rounded-full" />
+        <span className="bubble rise absolute -top-16 left-16 size-3 rounded-full" style={{ animationDelay: "-4s" }} />
+        <div className="bubble bob flex aspect-square flex-col items-center justify-center rounded-full px-[13%] text-center">
+          <span className="label text-glow">what your Driftling hears</span>
+          <p className="mt-2 font-serif text-2xl font-light italic">{m.lane}</p>
+          <dl className="mt-5 w-full space-y-1.5 text-[15px]">
+            {rows.slice(1).map(([k, v]) => (
+              <div key={k} className="flex items-baseline gap-2">
+                <dt className="text-dim">{k}</dt>
+                <span className="flex-1 translate-y-[-3px] border-b border-dotted border-faint" />
+                <dd className="font-serif">{v}</dd>
+              </div>
+            ))}
+          </dl>
+          <p className="mt-5 text-sm text-faint">Signed once. Nothing outside it can happen.</p>
         </div>
-        <dl className="mt-5">
-          {rows.map(([k, v]) => (
-            <div key={k} className="flex justify-between gap-6 border-b border-dashed border-faint/50 py-2.5 text-[15px]">
-              <dt className="text-dim">{k}</dt>
-              <dd className="text-right font-mono text-[13px]">{v}</dd>
-            </div>
-          ))}
-        </dl>
-        <p className="mt-5 text-sm text-faint">
-          You sign this once. Anything outside it simply can’t happen.
-        </p>
       </div>
     </div>
   );

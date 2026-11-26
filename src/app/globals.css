@@ -32,11 +32,66 @@ body {
 }
 
 .label {
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 15px;
+  letter-spacing: 0;
   color: var(--color-dim);
+}
+
+/* headline words surface one by one, then keep a slow sway */
+.word {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(10px);
+  transform: translateY(0.4em);
+  animation: surface 1.4s cubic-bezier(0.2, 0.7, 0.2, 1) forwards, sway 7s ease-in-out infinite;
+}
+@keyframes surface {
+  to { opacity: 1; filter: blur(0); transform: translateY(0); }
+}
+@keyframes sway {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -0.06em; }
+}
+
+/* the green lines that run through the headline */
+.stream path {
+  stroke-dasharray: 260 1400;
+  animation: flow 6s linear infinite;
+}
+@keyframes flow {
+  from { stroke-dashoffset: 1660; }
+  to { stroke-dashoffset: 0; }
+}
+
+/* bubbles */
+.bubble {
+  background:
+    radial-gradient(circle at 30% 25%, rgba(233, 228, 216, 0.16), transparent 32%),
+    radial-gradient(circle at 70% 80%, rgba(201, 242, 122, 0.10), transparent 50%),
+    rgba(11, 15, 18, 0.72);
+  box-shadow:
+    inset 0 0 0 1px rgba(233, 228, 216, 0.12),
+    inset -18px -24px 60px rgba(201, 242, 122, 0.06),
+    0 30px 80px -30px rgba(201, 242, 122, 0.25);
+  backdrop-filter: blur(6px);
+}
+.bob { animation: bob 9s ease-in-out infinite; }
+@keyframes bob {
+  0%, 100% { transform: translate(0, 0) rotate(-0.6deg); }
+  33% { transform: translate(6px, -12px) rotate(0.4deg); }
+  66% { transform: translate(-5px, -5px) rotate(-0.2deg); }
+}
+.rise { animation: rise 12s ease-in-out infinite; }
+@keyframes rise {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .word, .stream path, .bob, .rise { animation: none; opacity: 1; filter: none; transform: none; }
 }
 
 /* hand-drawn underline under one word */

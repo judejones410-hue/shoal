@@ -1,4 +1,5 @@
-import { ArrowDownRight, ArrowUpRight } from "lucide-react";
+import { ArrowDownRight } from "lucide-react";
+import { GITHUB, SITE } from "@/lib/links";
 import { Current, MandateWriter, Specimens } from "@/components/live";
 
 const LOG = [
@@ -33,6 +34,8 @@ export default function Home() {
             <a href="#write" className="hover:text-paper">Write a current</a>
             <a href="#log" className="hover:text-paper">Tide log</a>
             <a href="#drift" className="hover:text-paper">$DRIFT</a>
+            <a href="/docs" className="hover:text-paper">Docs</a>
+            <a href={GITHUB} target="_blank" rel="noreferrer" className="hover:text-paper">GitHub</a>
           </nav>
           <a href="#write" className="rounded-full border border-paper/30 px-4 py-1.5 text-sm hover:border-glow hover:text-glow">
             Join the waitlist
@@ -41,10 +44,30 @@ export default function Home() {
 
         <div className="pointer-events-none absolute bottom-0 left-0 z-10 max-w-3xl px-5 pb-14 md:px-10 md:pb-20">
           <p className="label">A field guide · first school · 8,888 specimens</p>
-          <h1 className="mt-5 font-serif text-[clamp(3rem,8vw,6.8rem)] leading-[0.92] font-extralight tracking-tight">
-            Small minds,
+          <h1 className="relative mt-5 font-serif text-[clamp(3rem,8vw,6.8rem)] leading-[0.92] font-extralight tracking-tight">
+            {["Small", "minds,"].map((w, k) => (
+              <span key={w} className="word mr-[0.22em]" style={{ animationDelay: `${0.2 + k * 0.18}s, ${k * 0.6}s` }}>
+                {w}
+              </span>
+            ))}
             <br />
-            <em className="font-light">strong <span className="scribble">currents</span>.</em>
+            <em className="font-light">
+              <span className="word mr-[0.22em]" style={{ animationDelay: "0.65s, 1.2s" }}>strong</span>
+              <span className="word scribble" style={{ animationDelay: "0.85s, 1.8s" }}>currents.</span>
+            </em>
+            <svg
+              aria-hidden
+              viewBox="0 0 800 260"
+              preserveAspectRatio="none"
+              className="stream absolute -inset-x-6 inset-y-0 h-full w-[calc(100%+3rem)] mix-blend-screen"
+              fill="none"
+              stroke="#c9f27a"
+              strokeLinecap="round"
+            >
+              <path d="M-20 70 C 140 20, 260 130, 420 80 S 700 30, 820 95" strokeWidth="1.2" opacity="0.8" />
+              <path d="M-20 150 C 160 110, 300 210, 470 150 S 690 120, 820 175" strokeWidth="0.9" opacity="0.55" style={{ animationDelay: "-2s", animationDuration: "7.5s" }} />
+              <path d="M-20 215 C 120 190, 330 250, 500 205 S 720 190, 820 230" strokeWidth="0.7" opacity="0.4" style={{ animationDelay: "-4s", animationDuration: "9s" }} />
+            </svg>
           </h1>
           <p className="mt-6 max-w-md text-lg text-paper/75">
             A Driftling is a tiny trading agent with its own wallet. You write the current it swims in. It never
@@ -99,66 +122,107 @@ export default function Home() {
         <MandateWriter />
       </section>
 
-      {/* ---------- log ---------- */}
-      <section id="log" className="mx-auto max-w-6xl px-5 pb-24 md:px-10 md:pb-32">
-        <div className="grid gap-12 md:grid-cols-[1fr_2fr]">
-          <div>
-            <h2 className="font-serif text-5xl leading-[1.02] font-extralight">
-              The tide <em>log.</em>
-            </h2>
-            <p className="mt-5 max-w-xs text-dim">
-              Every move and every move it <em>didn’t</em> make, with the reason. A Driftling that says no is doing
-              its job.
-            </p>
-            <p className="label mt-6 text-faint">Sample entries · not real activity</p>
-          </div>
-          <ol className="font-mono text-[13px]">
-            {LOG.map(([t, who, what, why]) => (
-              <li key={t} className="grid grid-cols-[3.5rem_5.5rem_1fr] gap-3 border-b border-faint/40 py-4 md:grid-cols-[4rem_7rem_1fr_auto]">
-                <span className="text-faint">{t}</span>
-                <span className="text-glow">{who}</span>
-                <span>{what}</span>
-                <span className="col-span-3 text-dim md:col-span-1 md:text-right">{why}</span>
+      {/* ---------- log: a stream of rising bubbles ---------- */}
+      <section id="log" className="relative mx-auto max-w-6xl px-5 pb-28 md:px-10 md:pb-36">
+        <div className="max-w-xl">
+          <h2 className="font-serif text-5xl leading-[1.02] font-extralight md:text-6xl">
+            The tide <em>log.</em>
+          </h2>
+          <p className="mt-5 max-w-sm text-dim">
+            Every move, and every move it <em>didn’t</em> make, floats up with its reason. A Driftling that says no
+            is doing its job.
+          </p>
+        </div>
+
+        <div className="relative mt-14">
+          <svg aria-hidden viewBox="0 0 100 600" preserveAspectRatio="none" className="stream absolute inset-y-0 left-1/2 hidden h-full w-40 -translate-x-1/2 md:block" fill="none" stroke="#c9f27a" strokeLinecap="round">
+            <path d="M50 610 C 20 500, 80 420, 50 300 S 20 100, 50 -10" strokeWidth="0.6" opacity="0.5" vectorEffect="non-scaling-stroke" />
+            <path d="M50 610 C 75 520, 25 400, 55 290 S 80 90, 45 -10" strokeWidth="0.6" opacity="0.3" vectorEffect="non-scaling-stroke" style={{ animationDelay: "-3s" }} />
+          </svg>
+          <ol className="relative space-y-8 md:space-y-4">
+            {LOG.map(([t, who, what, why], k) => (
+              <li
+                key={t}
+                className={`rise flex md:w-1/2 ${k % 2 ? "md:ml-auto md:justify-start md:pl-10" : "md:justify-end md:pr-10"}`}
+                style={{ animationDelay: `${-k * 2.3}s` }}
+              >
+                <div className={`bubble max-w-md rounded-[2.2rem] px-7 py-5 ${k % 2 ? "rounded-bl-md" : "rounded-br-md"}`}>
+                  <p className="label">
+                    <span className="text-glow">{who}</span> · {t}
+                  </p>
+                  <p className="mt-1 font-serif text-xl font-light">{what}</p>
+                  <p className="mt-1 text-sm text-dim">{why}</p>
+                </div>
               </li>
             ))}
           </ol>
+          <p className="label mt-10 text-center text-faint">sample entries, not real activity</p>
         </div>
       </section>
 
       {/* ---------- $DRIFT ---------- */}
-      <section id="drift" className="relative border-t border-faint/40">
-        <div className="mx-auto grid max-w-6xl gap-12 px-5 py-24 md:grid-cols-2 md:px-10 md:py-32">
+      <section id="drift" className="relative isolate overflow-hidden border-t border-faint/40">
+        <div className="absolute inset-0 -z-10 opacity-60">
+          <Current />
+        </div>
+        <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_30%_50%,rgba(6,8,10,0.85),rgba(6,8,10,0.35)_70%)]" />
+        <div className="mx-auto grid max-w-6xl items-center gap-14 px-5 py-28 md:grid-cols-[1.1fr_1fr] md:px-10 md:py-40">
           <div>
-            <p className="font-serif text-[clamp(5rem,14vw,11rem)] leading-none font-extralight italic">
+            <p className="font-serif text-[clamp(5rem,15vw,12rem)] leading-[0.85] font-extralight italic">
               $DRIFT
             </p>
-            <p className="label mt-4">Planned · Solana · not live</p>
+            <div className="mt-8 inline-flex items-center gap-3 rounded-full border border-glow/30 py-2 pr-5 pl-2">
+              <span className="relative flex size-6 items-center justify-center rounded-full bg-glow/10">
+                <span className="absolute size-full animate-ping rounded-full bg-glow/20" />
+                <span className="size-2 rounded-full bg-glow" />
+              </span>
+              <span className="font-serif text-lg italic">Still forming in the deep. Solana, not live yet.</span>
+            </div>
           </div>
-          <div className="self-end">
-            <p className="text-xl leading-relaxed text-paper/85">
-              The school’s token. The idea: a small fee on what Driftlings trade flows back to the school, and early
-              holders of a specimen get a share of the first $DRIFT.
+          <div>
+            <p className="font-serif text-2xl leading-snug font-light">
+              The school’s token. A small fee on what Driftlings trade flows back to the school, and early keepers of a
+              specimen get a share of the first $DRIFT.
             </p>
-            <ul className="mt-8 space-y-3 text-dim">
-              <li className="flex gap-3"><ArrowUpRight className="mt-1 size-4 shrink-0 text-glow" /> Fee details published before anything trades</li>
-              <li className="flex gap-3"><ArrowUpRight className="mt-1 size-4 shrink-0 text-glow" /> No contract address exists yet, so ignore any you see</li>
-              <li className="flex gap-3"><ArrowDownRight className="mt-1 size-4 shrink-0 text-rust" /> Tokens can go to zero. Treat this as a story, not a promise</li>
-            </ul>
+            <div className="mt-10 grid grid-cols-3 gap-4 text-center">
+              {[
+                ["10%", "for specimen keepers"],
+                ["1%", "planned trading fee"],
+                ["0", "contracts live today"],
+              ].map(([n, l]) => (
+                <div key={l} className="bubble rise flex aspect-square flex-col items-center justify-center rounded-full p-3" style={{ animationDelay: `-${n.length * 3}s` }}>
+                  <span className="font-serif text-3xl font-extralight text-glow">{n}</span>
+                  <span className="mt-1 text-xs leading-tight text-dim">{l}</span>
+                </div>
+              ))}
+            </div>
+            <p className="mt-8 flex gap-3 text-sm text-dim">
+              <ArrowDownRight className="mt-0.5 size-4 shrink-0 text-rust" />
+              Tokens can go to zero. Any contract address you see before launch is fake.
+            </p>
           </div>
         </div>
       </section>
 
       {/* ---------- faq ---------- */}
-      <section className="mx-auto max-w-3xl px-5 pb-24 md:px-10 md:pb-32">
-        <h2 className="font-serif text-4xl font-extralight">Fair questions</h2>
-        <div className="mt-8">
-          {FAQ.map(([q, a]) => (
-            <details key={q} className="border-b border-faint/40 py-5">
-              <summary className="flex items-center justify-between gap-6 text-lg">
-                {q}
-                <span className="plus font-serif text-2xl text-glow transition-transform">+</span>
+      <section className="mx-auto grid max-w-6xl gap-12 px-5 py-28 md:grid-cols-[1fr_1.6fr] md:px-10 md:py-36">
+        <div>
+          <h2 className="font-serif text-5xl leading-[1.02] font-extralight">
+            Fair <em>questions.</em>
+          </h2>
+          <p className="mt-5 max-w-xs text-dim">
+            Anything else, the <a href="/docs" className="text-paper underline decoration-glow underline-offset-4">docs</a> go deeper.
+          </p>
+        </div>
+        <div>
+          {FAQ.map(([q, a], k) => (
+            <details key={q} className="group border-t border-faint/40 py-6 last:border-b">
+              <summary className="flex items-baseline gap-5">
+                <span className="font-serif text-glow italic">{["i", "ii", "iii", "iv"][k]}.</span>
+                <span className="flex-1 font-serif text-2xl font-light">{q}</span>
+                <span className="plus flex size-8 shrink-0 items-center justify-center rounded-full border border-faint text-glow transition-transform group-open:border-glow">+</span>
               </summary>
-              <p className="mt-3 max-w-xl text-dim">{a}</p>
+              <p className="mt-4 max-w-lg pl-9 text-dim">{a}</p>
             </details>
           ))}
         </div>
@@ -169,6 +233,11 @@ export default function Home() {
           <p className="font-serif text-3xl italic">
             driftlings<span className="text-glow">.</span>
           </p>
+          <nav className="flex gap-6 font-serif text-lg italic">
+            <a href={SITE} className="hover:text-glow">Website ↗</a>
+            <a href={GITHUB} target="_blank" rel="noreferrer" className="hover:text-glow">GitHub ↗</a>
+            <a href="/docs" className="hover:text-glow">Docs</a>
+          </nav>
           <p className="max-w-md text-sm text-faint">
             A concept. Nothing here is live, investment advice, an offer or a promise of returns. We never DM first.
           </p>
