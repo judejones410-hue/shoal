@@ -1,6 +1,7 @@
 import { ArrowDownRight } from "lucide-react";
 import { GITHUB, SITE } from "@/lib/links";
 import { Current, MandateWriter, Specimens } from "@/components/live";
+import { Depth, Dive, Marker } from "@/components/dive";
 
 const LOG = [
   ["04:12", "Kelp", "Bought 1.2 SOL", "inside limits"],
@@ -20,6 +21,8 @@ const FAQ = [
 export default function Home() {
   return (
     <main className="overflow-x-clip">
+      <Dive />
+      <Depth />
       {/* ---------- hero: the current ---------- */}
       <section className="relative h-[100svh] min-h-[620px]">
         <Current school />
@@ -82,6 +85,7 @@ export default function Home() {
 
       {/* ---------- the school ---------- */}
       <section id="school" className="mx-auto max-w-6xl px-5 py-24 md:px-10 md:py-32">
+        <Marker n="01">the school</Marker>
         <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
           <h2 className="max-w-xl font-serif text-5xl leading-[1.02] font-extralight md:text-6xl">
             Every one is <em>a little different.</em>
@@ -113,6 +117,7 @@ export default function Home() {
 
       {/* ---------- write ---------- */}
       <section id="write" className="mx-auto max-w-6xl px-5 py-24 md:px-10 md:py-32">
+        <Marker n="02">write a current</Marker>
         <div className="mb-10 max-w-2xl">
           <p className="label">Try it, nothing is sent anywhere</p>
           <h2 className="mt-4 font-serif text-5xl leading-[1.02] font-extralight md:text-6xl">
@@ -124,6 +129,7 @@ export default function Home() {
 
       {/* ---------- log: a stream of rising bubbles ---------- */}
       <section id="log" className="relative mx-auto max-w-6xl px-5 pb-28 md:px-10 md:pb-36">
+        <Marker n="03">the tide log</Marker>
         <div className="max-w-xl">
           <h2 className="font-serif text-5xl leading-[1.02] font-extralight md:text-6xl">
             The tide <em>log.</em>
@@ -168,6 +174,7 @@ export default function Home() {
         <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_30%_50%,rgba(6,8,10,0.85),rgba(6,8,10,0.35)_70%)]" />
         <div className="mx-auto grid max-w-6xl items-center gap-14 px-5 py-28 md:grid-cols-[1.1fr_1fr] md:px-10 md:py-40">
           <div>
+            <Marker n="04">the token</Marker>
             <p className="font-serif text-[clamp(5rem,15vw,12rem)] leading-[0.85] font-extralight italic">
               $SHOAL
             </p>
