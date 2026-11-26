@@ -1,26 +1,58 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-ink: #06080a;
+  --color-deep: #0b0f12;
+  --color-paper: #e9e4d8;
+  --color-dim: #8f8b80;
+  --color-faint: #4a4943;
+  --color-glow: #c9f27a;
+  --color-rust: #e7864e;
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-sans: "Karla", system-ui, sans-serif;
+  --font-mono: "Martian Mono", ui-monospace, monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-glow);
+  color: var(--color-ink);
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-dim);
+}
+
+/* hand-drawn underline under one word */
+.scribble {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12' preserveAspectRatio='none'%3E%3Cpath d='M2 8c30-5 60-6 95-3s70 2 101-4' fill='none' stroke='%23c9f27a' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E")
+    bottom / 100% 0.32em no-repeat;
+  padding-bottom: 0.08em;
+}
+
+details > summary {
+  list-style: none;
+  cursor: pointer;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+details[open] .plus {
+  transform: rotate(45deg);
 }
