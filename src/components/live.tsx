@@ -178,24 +178,74 @@ export function MandateWriter() {
         </span>
       </label>
 
-      <div className="relative mx-auto w-full max-w-[460px]">
-        {/* little bubbles trailing off the big one */}
-        <span className="bubble rise absolute -top-6 left-6 size-6 rounded-full" />
-        <span className="bubble rise absolute -top-16 left-16 size-3 rounded-full" style={{ animationDelay: "-4s" }} />
-        <div className="bubble bob flex aspect-square flex-col items-center justify-center rounded-full px-[13%] text-center">
-          <span className="label text-glow">what your fish hears</span>
-          <p className="mt-2 font-serif text-2xl font-light italic">{m.lane}</p>
-          <dl className="mt-5 w-full space-y-1.5 text-[15px]">
-            {rows.slice(1).map(([k, v]) => (
-              <div key={k} className="flex items-baseline gap-2">
-                <dt className="text-dim">{k}</dt>
-                <span className="flex-1 translate-y-[-3px] border-b border-dotted border-faint" />
-                <dd className="font-serif">{v}</dd>
-              </div>
-            ))}
-          </dl>
-          <p className="mt-5 text-sm text-faint">Signed once. Nothing outside it can happen.</p>
-        </div>
+      {/* no container: the reading just floats, each line on its own little drift */}
+      <div className="relative">
+        <span className="label text-glow">what your fish hears</span>
+        <p className="mt-2 font-serif text-4xl font-extralight italic">{m.lane}</p>
+        <dl className="mt-7 space-y-3">
+          {rows.slice(1).map(([k, v], i) => (
+            <div key={k} className="rise flex items-baseline gap-3" style={{ animationDelay: `${-i * 1.7}s`, marginLeft: `${[0, 14, 4, 22, 8, 0][i] ?? 0}px` }}>
+              <dt className="text-dim italic">{k}</dt>
+              <span className="flex-1 translate-y-[-4px] border-b border-dotted border-faint/70" />
+              <dd className="font-serif text-xl font-light">{v}</dd>
+            </div>
+          ))}
+        </dl>
+        <p className="label mt-7 text-faint">signed once, nothing outside it can happen</p>
+      </div>
+    </div>
+  );
+}
+
+/* The tide log sits under thick fog. Your cursor clears a hole in it; when you leave it alone the clear
+   patch wanders by itself so phones and idle visitors still catch glimpses. */
+export function TideFog({ log }: { log: string[][] }) {
+  const ref = React.useRef<HTMLDivElement>(null);
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    let last = 0;
+    let raf = 0;
+    const set = (x: number, y: number) => {
+      el.style.setProperty("--x", `${x}px`);
+      el.style.setProperty("--y", `${y}px`);
+    };
+    const move = (e: PointerEvent) => {
+      const r = el.getBoundingClientRect();
+      set(e.clientX - r.left, e.clientY - r.top);
+      last = performance.now();
+    };
+    const wander = (t: number) => {
+      if (t - last > 2500) {
+        const r = el.getBoundingClientRect();
+        const s = t / 1000;
+        set(r.width * (0.5 + 0.38 * Math.sin(s * 0.31)), r.height * (0.5 + 0.4 * Math.sin(s * 0.53 + 1)));
+      }
+      raf = requestAnimationFrame(wander);
+    };
+    raf = requestAnimationFrame(wander);
+    el.addEventListener("pointermove", move);
+    return () => {
+      cancelAnimationFrame(raf);
+      el.removeEventListener("pointermove", move);
+    };
+  }, []);
+
+  return (
+    <div ref={ref} className="relative mt-6 [--r:170px] md:[--r:240px]">
+      <ol className="relative grid gap-x-10 gap-y-14 px-10 py-20 md:grid-cols-2 md:px-28 md:py-28">
+        {log.map(([t, who, what, why], k) => (
+          <li key={t} className={`rise ${k % 2 ? "md:mt-20" : ""}`} style={{ animationDelay: `${-k * 2.3}s` }}>
+            <p className="label">
+              <span className="text-glow">{who}</span> · {t}
+            </p>
+            <p className="mt-1 font-serif text-3xl font-extralight">{what}</p>
+            <p className="mt-1 text-dim italic">{why}</p>
+          </li>
+        ))}
+      </ol>
+      <div aria-hidden className="fog-edge pointer-events-none absolute inset-0">
+        <div className="fog absolute inset-0" />
       </div>
     </div>
   );

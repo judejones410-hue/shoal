@@ -9,8 +9,8 @@
   --color-glow: #c9f27a;
   --color-rust: #e7864e;
   --font-serif: "Fraunces", Georgia, serif;
-  --font-sans: "Karla", system-ui, sans-serif;
-  --font-mono: "Martian Mono", ui-monospace, monospace;
+  --font-sans: "Newsreader", Georgia, serif;
+  --font-mono: "Newsreader", Georgia, serif;
 }
 
 html {
@@ -21,8 +21,9 @@ html {
 
 body {
   font-family: var(--font-sans);
-  font-size: 17px;
-  line-height: 1.6;
+  font-size: 19px;
+  font-weight: 350;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -66,18 +67,6 @@ body {
   to { stroke-dashoffset: 0; }
 }
 
-/* bubbles */
-.bubble {
-  background:
-    radial-gradient(circle at 30% 25%, rgba(233, 228, 216, 0.16), transparent 32%),
-    radial-gradient(circle at 70% 80%, rgba(201, 242, 122, 0.10), transparent 50%),
-    rgba(11, 15, 18, 0.72);
-  box-shadow:
-    inset 0 0 0 1px rgba(233, 228, 216, 0.12),
-    inset -18px -24px 60px rgba(201, 242, 122, 0.06),
-    0 30px 80px -30px rgba(201, 242, 122, 0.25);
-  backdrop-filter: blur(6px);
-}
 .bob { animation: bob 9s ease-in-out infinite; }
 @keyframes bob {
   0%, 100% { transform: translate(0, 0) rotate(-0.6deg); }
@@ -133,4 +122,50 @@ body::after {
 @keyframes eq {
   from { height: 3px; }
   to { height: 12px; }
+}
+
+/* floating slogan link: no box, just words that bob on the water */
+.float-link {
+  position: relative;
+  display: inline-block;
+  font-family: var(--font-serif);
+  font-style: italic;
+  animation: bob 7s ease-in-out infinite;
+}
+.float-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.25em;
+  height: 0.35em;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 10' preserveAspectRatio='none'%3E%3Cpath d='M0 5 Q 10 0 20 5 T 40 5 T 60 5 T 80 5 T 100 5 T 120 5' fill='none' stroke='%23c9f27a' stroke-width='1.2'/%3E%3C/svg%3E") 0 0 / 40px 100% repeat-x;
+  opacity: 0.55;
+  animation: ripple 2.4s linear infinite;
+}
+.float-link:hover::after { opacity: 1; }
+@keyframes ripple { to { background-position: 40px 0; } }
+
+/* the fog over the tide log: soft at the edges, a clear patch wherever the cursor is */
+.fog {
+  /* layered soft clouds, no image tiles so nothing can seam */
+  background:
+    radial-gradient(38% 30% at 22% 30%, rgba(120, 132, 122, 0.55), transparent 70%),
+    radial-gradient(30% 34% at 70% 22%, rgba(105, 118, 110, 0.5), transparent 70%),
+    radial-gradient(42% 36% at 58% 72%, rgba(118, 128, 118, 0.5), transparent 70%),
+    radial-gradient(28% 30% at 15% 80%, rgba(96, 108, 100, 0.5), transparent 70%),
+    radial-gradient(26% 24% at 88% 60%, rgba(110, 122, 114, 0.45), transparent 70%),
+    rgb(26, 31, 30);
+  background-size: 140% 140%, 160% 130%, 130% 150%, 150% 140%, 170% 160%, auto;
+  animation: fogdrift 26s ease-in-out infinite;
+  -webkit-mask-image: radial-gradient(circle var(--r, 220px) at var(--x, -999px) var(--y, -999px), transparent 0, transparent 40%, #000 100%);
+  mask-image: radial-gradient(circle var(--r, 220px) at var(--x, -999px) var(--y, -999px), transparent 0, transparent 40%, #000 100%);
+}
+.fog-edge {
+  -webkit-mask-image: radial-gradient(ellipse 70% 66% at 50% 50%, #000 62%, transparent 100%);
+  mask-image: radial-gradient(ellipse 70% 66% at 50% 50%, #000 62%, transparent 100%);
+}
+@keyframes fogdrift {
+  0%, 100% { background-position: 0% 0%, 100% 0%, 50% 100%, 0% 100%, 100% 50%, 0 0; }
+  50% { background-position: 60% 40%, 20% 60%, 10% 20%, 80% 30%, 30% 80%, 0 0; }
 }

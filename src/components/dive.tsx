@@ -111,8 +111,8 @@ export function Dive() {
               <p className="label mt-3 text-center">filling the water · {pct}%</p>
             </div>
           ) : (
-            <div className="relative mt-8 flex flex-col items-center gap-4">
-              <button onClick={() => enter(true)} className="rounded-full border border-glow/50 px-6 py-2.5 font-serif text-lg italic hover:bg-glow hover:text-ink">
+            <div className="relative mt-10 flex flex-col items-center gap-6">
+              <button onClick={() => enter(true)} className="float-link text-3xl font-light hover:text-glow">
                 Dive in with sound
               </button>
               <button onClick={() => enter(false)} className="label hover:text-paper">
@@ -126,7 +126,7 @@ export function Dive() {
 
       <button
         onClick={toggle}
-        className="fixed right-5 bottom-5 z-40 flex items-center gap-2 rounded-full bg-ink/60 px-3 py-1.5 text-xs text-dim backdrop-blur hover:text-paper md:right-10"
+        className="fixed right-5 bottom-5 z-40 flex items-center gap-2 font-serif text-[15px] text-dim italic hover:text-paper md:right-10"
         aria-label={muted ? "Turn water sound on" : "Turn water sound off"}
       >
         <span className="flex h-3 items-end gap-[2px]">

@@ -1,6 +1,6 @@
 import { ArrowDownRight } from "lucide-react";
 import { GITHUB, SITE } from "@/lib/links";
-import { Current, MandateWriter, Specimens } from "@/components/live";
+import { Current, MandateWriter, Specimens, TideFog } from "@/components/live";
 import { Depth, Dive, Marker } from "@/components/dive";
 
 const LOG = [
@@ -32,16 +32,23 @@ export default function Home() {
           <a href="#" className="font-serif text-xl italic">
             shoal<span className="text-glow">.</span>
           </a>
-          <nav className="hidden gap-8 text-sm text-dim md:flex">
-            <a href="#school" className="hover:text-paper">The school</a>
-            <a href="#write" className="hover:text-paper">Write a current</a>
-            <a href="#log" className="hover:text-paper">Tide log</a>
-            <a href="#drift" className="hover:text-paper">$SHOAL</a>
-            <a href="/docs" className="hover:text-paper">Docs</a>
-            <a href={GITHUB} target="_blank" rel="noreferrer" className="hover:text-paper">GitHub</a>
+          <nav className="hidden gap-7 font-serif text-[17px] font-light text-dim italic lg:flex">
+            {[
+              ["#school", "the school"],
+              ["#write", "write a current"],
+              ["#log", "tide log"],
+              ["#drift", "$SHOAL"],
+              ["/docs", "docs"],
+            ].map(([h, l], k) => (
+              <a key={h} href={h} className="group hover:text-paper">
+                <sup className="mr-1 text-[10px] text-glow/70 not-italic group-hover:text-glow">0{k + 1}</sup>
+                {l}
+              </a>
+            ))}
+            <a href={GITHUB} target="_blank" rel="noreferrer" className="hover:text-paper">github ↗</a>
           </nav>
-          <a href="#write" className="rounded-full border border-paper/30 px-4 py-1.5 text-sm hover:border-glow hover:text-glow">
-            Join the waitlist
+          <a href="#write" className="float-link text-xl text-paper hover:text-glow">
+            swim with us
           </a>
         </header>
 
@@ -127,7 +134,7 @@ export default function Home() {
         <MandateWriter />
       </section>
 
-      {/* ---------- log: a stream of rising bubbles ---------- */}
+      {/* ---------- log: hidden in fog ---------- */}
       <section id="log" className="relative mx-auto max-w-6xl px-5 pb-28 md:px-10 md:pb-36">
         <Marker n="03">the tide log</Marker>
         <div className="max-w-xl">
@@ -135,35 +142,13 @@ export default function Home() {
             The tide <em>log.</em>
           </h2>
           <p className="mt-5 max-w-sm text-dim">
-            Every move, and every move it <em>didn’t</em> make, floats up with its reason. A fish that says no
-            is doing its job.
+            Every move, and every move it <em>didn’t</em> make, is written down somewhere in the fog. A fish that
+            says no is doing its job.
           </p>
         </div>
 
-        <div className="relative mt-14">
-          <svg aria-hidden viewBox="0 0 100 600" preserveAspectRatio="none" className="stream absolute inset-y-0 left-1/2 hidden h-full w-40 -translate-x-1/2 md:block" fill="none" stroke="#c9f27a" strokeLinecap="round">
-            <path d="M50 610 C 20 500, 80 420, 50 300 S 20 100, 50 -10" strokeWidth="0.6" opacity="0.5" vectorEffect="non-scaling-stroke" />
-            <path d="M50 610 C 75 520, 25 400, 55 290 S 80 90, 45 -10" strokeWidth="0.6" opacity="0.3" vectorEffect="non-scaling-stroke" style={{ animationDelay: "-3s" }} />
-          </svg>
-          <ol className="relative space-y-8 md:space-y-4">
-            {LOG.map(([t, who, what, why], k) => (
-              <li
-                key={t}
-                className={`rise flex md:w-1/2 ${k % 2 ? "md:ml-auto md:justify-start md:pl-10" : "md:justify-end md:pr-10"}`}
-                style={{ animationDelay: `${-k * 2.3}s` }}
-              >
-                <div className={`bubble max-w-md rounded-[2.2rem] px-7 py-5 ${k % 2 ? "rounded-bl-md" : "rounded-br-md"}`}>
-                  <p className="label">
-                    <span className="text-glow">{who}</span> · {t}
-                  </p>
-                  <p className="mt-1 font-serif text-xl font-light">{what}</p>
-                  <p className="mt-1 text-sm text-dim">{why}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-          <p className="label mt-10 text-center text-faint">sample entries, not real activity</p>
-        </div>
+        <TideFog log={LOG} />
+        <p className="label mt-8 text-center text-faint">move through the fog to read it · sample entries, not real activity</p>
       </section>
 
       {/* ---------- $SHOAL ---------- */}
@@ -178,28 +163,24 @@ export default function Home() {
             <p className="font-serif text-[clamp(5rem,15vw,12rem)] leading-[0.85] font-extralight italic">
               $SHOAL
             </p>
-            <div className="mt-8 inline-flex items-center gap-3 rounded-full border border-glow/30 py-2 pr-5 pl-2">
-              <span className="relative flex size-6 items-center justify-center rounded-full bg-glow/10">
-                <span className="absolute size-full animate-ping rounded-full bg-glow/20" />
-                <span className="size-2 rounded-full bg-glow" />
-              </span>
-              <span className="font-serif text-lg italic">Still forming in the deep. Solana, not live yet.</span>
-            </div>
+            <p className="float-link mt-10 text-2xl font-light text-paper/90">
+              still forming in the deep · Solana · not live yet
+            </p>
           </div>
           <div>
             <p className="font-serif text-2xl leading-snug font-light">
               The school’s token. A small fee on what the fish trade flows back to the school, and early keepers of a
               specimen get a share of the first $SHOAL.
             </p>
-            <div className="mt-10 grid grid-cols-3 gap-4 text-center">
+            <div className="mt-12 grid grid-cols-3 gap-6">
               {[
                 ["10%", "for specimen keepers"],
                 ["1%", "planned trading fee"],
                 ["0", "contracts live today"],
               ].map(([n, l]) => (
-                <div key={l} className="bubble rise flex aspect-square flex-col items-center justify-center rounded-full p-3" style={{ animationDelay: `-${n.length * 3}s` }}>
-                  <span className="font-serif text-3xl font-extralight text-glow">{n}</span>
-                  <span className="mt-1 text-xs leading-tight text-dim">{l}</span>
+                <div key={l} className="rise" style={{ animationDelay: `-${n.length * 3}s` }}>
+                  <span className="block font-serif text-6xl font-extralight text-glow">{n}</span>
+                  <span className="mt-2 block text-[15px] leading-tight text-dim italic">{l}</span>
                 </div>
               ))}
             </div>
@@ -227,7 +208,7 @@ export default function Home() {
               <summary className="flex items-baseline gap-5">
                 <span className="font-serif text-glow italic">{["i", "ii", "iii", "iv"][k]}.</span>
                 <span className="flex-1 font-serif text-2xl font-light">{q}</span>
-                <span className="plus flex size-8 shrink-0 items-center justify-center rounded-full border border-faint text-glow transition-transform group-open:border-glow">+</span>
+                <span className="plus font-serif text-3xl leading-none font-extralight text-glow transition-transform">+</span>
               </summary>
               <p className="mt-4 max-w-lg pl-9 text-dim">{a}</p>
             </details>
