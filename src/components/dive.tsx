@@ -42,7 +42,7 @@ function startWater() {
 
 /* ------------------------------------------------------------------ */
 /* The way in: a short "filling the water" count, then dive with or    */
-/* without sound. Shown once per visit.                                */
+/* without sound. Shown on every load.                                */
 /* ------------------------------------------------------------------ */
 
 export function Dive() {
@@ -52,24 +52,17 @@ export function Dive() {
   const [muted, setMuted] = React.useState(true);
 
   React.useEffect(() => {
-    let seen = false;
-    try {
-      seen = sessionStorage.getItem("shoal.dived") === "1";
-    } catch {}
-    if (seen) {
-      const r = setTimeout(() => setStage("hidden"), 0);
-      return () => clearTimeout(r);
-    }
     document.documentElement.style.overflow = "hidden";
     let p = 0;
     const id = setInterval(() => {
-      p = Math.min(100, p + Math.ceil(Math.random() * 9));
+      // about 5 seconds to fill, with small uneven steps so it feels like real loading
+      p = Math.min(100, p + Math.ceil(Math.random() * 3));
       setPct(p);
       if (p >= 100) {
         clearInterval(id);
         setStage("ready");
       }
-    }, 70);
+    }, 100);
     return () => clearInterval(id);
   }, []);
 
@@ -78,9 +71,6 @@ export function Dive() {
       setSound(startWater());
       setMuted(false);
     }
-    try {
-      sessionStorage.setItem("shoal.dived", "1");
-    } catch {}
     setStage("leaving");
     document.documentElement.style.overflow = "";
     setTimeout(() => setStage("hidden"), 1200);
