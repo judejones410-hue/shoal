@@ -109,7 +109,7 @@ export default function School({ count = 46, color = "201, 242, 122" }: { count?
         const my = f.y - mouse.y;
         const md = Math.hypot(mx, my);
         if (md < 140) { f.vx += (mx / md) * 0.9; f.vy += (my / md) * 0.9; }
-        const sp = Math.hypot(f.vx, f.vy);
+        const sp = Math.hypot(f.vx, f.vy) || 0.001;
         const lim = Math.min(4.5, Math.max(1.3, sp));
         f.vx = (f.vx / sp) * lim;
         f.vy = (f.vy / sp) * lim;

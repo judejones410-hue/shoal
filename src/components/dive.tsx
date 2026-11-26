@@ -46,7 +46,7 @@ function startWater() {
 /* ------------------------------------------------------------------ */
 
 export function Dive() {
-  const [stage, setStage] = React.useState<"hidden" | "loading" | "ready" | "leaving">("hidden");
+  const [stage, setStage] = React.useState<"hidden" | "loading" | "ready" | "leaving">("loading");
   const [pct, setPct] = React.useState(0);
   const [sound, setSound] = React.useState<AudioContext | null>(null);
   const [muted, setMuted] = React.useState(true);
@@ -56,8 +56,10 @@ export function Dive() {
     try {
       seen = sessionStorage.getItem("shoal.dived") === "1";
     } catch {}
-    if (seen) return;
-    setStage("loading");
+    if (seen) {
+      const r = setTimeout(() => setStage("hidden"), 0);
+      return () => clearTimeout(r);
+    }
     document.documentElement.style.overflow = "hidden";
     let p = 0;
     const id = setInterval(() => {

@@ -78,7 +78,7 @@ export default function Home() {
           </p>
         </div>
 
-        <p className="label absolute right-5 bottom-6 z-10 hidden md:right-10 md:block">
+        <p className="label absolute right-5 bottom-16 z-10 hidden md:right-10 md:block">
           Move your cursor through the water ↯
         </p>
       </section>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { GITHUB, SITE } from "@/lib/links";
 
 export const metadata: Metadata = { title: "Docs — Shoal" };
@@ -91,9 +92,9 @@ export default function Docs() {
   return (
     <main className="mx-auto max-w-6xl px-5 py-10 md:px-10">
       <header className="flex items-center justify-between">
-        <a href="/" className="font-serif text-xl italic">
+        <Link href="/" className="font-serif text-xl italic">
           shoal<span className="text-glow">.</span>
-        </a>
+        </Link>
         <nav className="flex gap-6 text-sm text-dim">
           <a href={SITE} className="hover:text-paper">Website</a>
           <a href={GITHUB} target="_blank" rel="noreferrer" className="hover:text-paper">GitHub</a>

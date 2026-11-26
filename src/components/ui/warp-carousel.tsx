@@ -1048,7 +1048,9 @@ export function WarpCarousel({
     hiddenAt: 0,
   });
   const props = React.useRef({ onIndexChange, controlled, autoplay, gap, stepN, seconds, reduced, realCount });
-  props.current = { onIndexChange, controlled, autoplay, gap, stepN, seconds, reduced, realCount };
+  React.useLayoutEffect(() => {
+    props.current = { onIndexChange, controlled, autoplay, gap, stepN, seconds, reduced, realCount };
+  });
   const handles = React.useRef<{ kick: () => void; draw: () => void }>({ kick: () => {}, draw: () => {} });
 
   const lastIndex = React.useRef(current);
