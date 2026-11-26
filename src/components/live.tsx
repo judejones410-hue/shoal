@@ -2,10 +2,12 @@
 
 import * as React from "react";
 import NeuralBackground from "@/components/ui/flow-field-background";
+import School from "@/components/ui/school";
 import { WarpCarousel, type WarpCard } from "@/components/ui/warp-carousel";
 
-export function Current() {
+export function Current({ school = false }: { school?: boolean }) {
   return (
+    <>
     <NeuralBackground
       className="absolute inset-0 bg-ink"
       color="#c9f27a"
@@ -14,6 +16,8 @@ export function Current() {
       particleCount={900}
       speed={0.7}
     />
+    {school && <School />}
+    </>
   );
 }
 
@@ -107,7 +111,7 @@ export function Specimens() {
           interval={4.6}
           background="#06080a"
           font='"Fraunces", Georgia, serif'
-          ariaLabel="Driftling specimens"
+          ariaLabel="Shoal specimens"
           style={{ minHeight: 0, aspectRatio: "auto" }}
         />
       </div>
@@ -179,7 +183,7 @@ export function MandateWriter() {
         <span className="bubble rise absolute -top-6 left-6 size-6 rounded-full" />
         <span className="bubble rise absolute -top-16 left-16 size-3 rounded-full" style={{ animationDelay: "-4s" }} />
         <div className="bubble bob flex aspect-square flex-col items-center justify-center rounded-full px-[13%] text-center">
-          <span className="label text-glow">what your Driftling hears</span>
+          <span className="label text-glow">what your fish hears</span>
           <p className="mt-2 font-serif text-2xl font-light italic">{m.lane}</p>
           <dl className="mt-5 w-full space-y-1.5 text-[15px]">
             {rows.slice(1).map(([k, v]) => (

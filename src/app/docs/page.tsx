@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 import { GITHUB, SITE } from "@/lib/links";
 
-export const metadata: Metadata = { title: "Docs — Driftlings" };
+export const metadata: Metadata = { title: "Docs — Shoal" };
 
 const CHAPTERS: { id: string; title: string; body: React.ReactNode }[] = [
   {
     id: "what",
-    title: "What a Driftling is",
+    title: "What a Shoal fish is",
     body: (
       <>
         <p>
-          A Driftling is one collectible and one trading agent at the same time. Each specimen owns a small wallet of
+          Each Shoal fish is one collectible and one trading agent at the same time. Each specimen owns a small wallet of
           its own. Whoever keeps the specimen controls that wallet and writes the rules the agent follows.
         </p>
         <p>
@@ -26,7 +26,7 @@ const CHAPTERS: { id: string; title: string; body: React.ReactNode }[] = [
     body: (
       <>
         <p>
-          A current is one plain sentence: how much the Driftling can use, which waters it can swim in, where it stops
+          A current is one plain sentence: how much the fish can use, which waters it can swim in, where it stops
           for profit (the shore) and where it stops for safety (the rocks).
         </p>
         <p>
@@ -56,18 +56,18 @@ const CHAPTERS: { id: string; title: string; body: React.ReactNode }[] = [
     body: (
       <p>
         Every proposal is written down, including the ones that were refused and why. The log is public per specimen,
-        so a good Driftling builds a reputation you can see before you buy it.
+        so a good fish builds a reputation you can see before you buy it.
       </p>
     ),
   },
   {
     id: "drift",
-    title: "$DRIFT",
+    title: "$SHOAL",
     body: (
       <>
         <p>
-          $DRIFT is the planned token of the school. The plan is a small fee (around 1%) on what Driftlings trade, with
-          part of it buying $DRIFT back, and 10% of supply set aside for specimen keepers.
+          $SHOAL is the planned token of the school. The plan is a small fee (around 1%) on what the fish trade, with
+          part of it buying $SHOAL back, and 10% of supply set aside for specimen keepers.
         </p>
         <p>None of this is final. No contract exists. Any address shared before an official announcement is fake.</p>
       </>
@@ -78,7 +78,7 @@ const CHAPTERS: { id: string; title: string; body: React.ReactNode }[] = [
     title: "Safety & honesty",
     body: (
       <ul>
-        <li>Driftlings is a concept. Nothing on the site trades, and every number is illustrative.</li>
+        <li>Shoal is a concept. Nothing on the site trades, and every number is illustrative.</li>
         <li>Agents can lose money. Limits reduce how much, they do not remove the risk.</li>
         <li>Only you can withdraw from your specimen’s wallet. The agent never can.</li>
         <li>We never DM first and never ask for a seed phrase.</li>
@@ -92,7 +92,7 @@ export default function Docs() {
     <main className="mx-auto max-w-6xl px-5 py-10 md:px-10">
       <header className="flex items-center justify-between">
         <a href="/" className="font-serif text-xl italic">
-          driftlings<span className="text-glow">.</span>
+          shoal<span className="text-glow">.</span>
         </a>
         <nav className="flex gap-6 text-sm text-dim">
           <a href={SITE} className="hover:text-paper">Website</a>
@@ -120,7 +120,7 @@ export default function Docs() {
             How the <em>school</em> swims.
           </h1>
           <p className="mt-6 max-w-xl text-lg text-dim">
-            Everything you need to know about Driftlings, written for people, not lawyers. It’s a concept, and these
+            Everything you need to know about Shoal, written for people, not lawyers. It’s a concept, and these
             notes describe the plan.
           </p>
           {CHAPTERS.map((c, k) => (

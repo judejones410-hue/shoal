@@ -26,6 +26,8 @@ interface NeuralBackgroundProps {
   speed?: number;
   /** RGB of the trail fade, so the field can sit on a non-black page. Default: "0, 0, 0" */
   fade?: string;
+  /** Draw each particle as a tiny swimming fish instead of a dot. */
+  fish?: boolean;
 }
 
 export default function NeuralBackground({
@@ -35,6 +37,7 @@ export default function NeuralBackground({
   particleCount = 600,
   speed = 1,
   fade = "0, 0, 0",
+  fish = false,
 }: NeuralBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -62,6 +65,8 @@ export default function NeuralBackground({
       vy: number;
       age: number;
       life: number;
+      size = 0.7 + Math.random() * 0.9;
+      phase = Math.random() * Math.PI * 2;
 
       constructor() {
         this.x = Math.random() * width;
@@ -129,7 +134,31 @@ export default function NeuralBackground({
         // Fade in and out based on age
         const alpha = 1 - Math.abs(this.age / this.life - 0.5) * 2;
         context.globalAlpha = alpha;
-        context.fillRect(this.x, this.y, 1.5, 1.5); // Tiny dots are faster than arcs
+        if (!fish) {
+          context.fillRect(this.x, this.y, 1.5, 1.5); // Tiny dots are faster than arcs
+          return;
+        }
+        // a fish: teardrop body, forked tail that beats faster when it swims faster
+        const sp = Math.hypot(this.vx, this.vy);
+        const L = 7 * this.size;
+        const beat = Math.sin(this.age * (0.25 + sp * 0.12) + this.phase) * (0.35 + Math.min(sp, 3) * 0.12);
+        context.save();
+        context.translate(this.x, this.y);
+        context.rotate(Math.atan2(this.vy, this.vx));
+        context.beginPath();
+        context.moveTo(L * 0.55, 0);
+        context.quadraticCurveTo(L * 0.1, -L * 0.24, -L * 0.35, 0);
+        context.quadraticCurveTo(L * 0.1, L * 0.24, L * 0.55, 0);
+        context.fill();
+        context.rotate(beat);
+        context.beginPath();
+        context.moveTo(-L * 0.3, 0);
+        context.lineTo(-L * 0.62, -L * 0.2);
+        context.lineTo(-L * 0.52, 0);
+        context.lineTo(-L * 0.62, L * 0.2);
+        context.closePath();
+        context.fill();
+        context.restore();
       }
     }
 
@@ -197,7 +226,7 @@ export default function NeuralBackground({
       container.removeEventListener("mouseleave", handleMouseLeave);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [color, trailOpacity, particleCount, speed, fade]);
+  }, [color, trailOpacity, particleCount, speed, fade, fish]);
 
   return (
     <div

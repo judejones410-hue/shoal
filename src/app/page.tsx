@@ -11,10 +11,10 @@ const LOG = [
 ];
 
 const FAQ = [
-  ["Is any of this live?", "No. Driftlings is a concept. No agents trade, no mint is open, and every number on this page is made up to show the idea."],
-  ["Can a Driftling lose money?", "In the real thing, yes. Limits shrink the damage, they don’t remove it. Nothing here is financial advice."],
-  ["Who holds the money?", "The plan: each Driftling gets its own wallet that only you can withdraw from. The agent can trade inside your limits and nothing else."],
-  ["What’s $DRIFT?", "A planned token for the school. No supply, date or contract exists yet. If someone DMs you one, it’s a scam. We never DM first."],
+  ["Is any of this live?", "No. Shoal is a concept. No agents trade, no mint is open, and every number on this page is made up to show the idea."],
+  ["Can a fish lose money?", "In the real thing, yes. Limits shrink the damage, they don’t remove it. Nothing here is financial advice."],
+  ["Who holds the money?", "The plan: each fish gets its own wallet that only you can withdraw from. The agent can trade inside your limits and nothing else."],
+  ["What’s $SHOAL?", "A planned token for the school. No supply, date or contract exists yet. If someone DMs you one, it’s a scam. We never DM first."],
 ];
 
 export default function Home() {
@@ -22,18 +22,18 @@ export default function Home() {
     <main className="overflow-x-clip">
       {/* ---------- hero: the current ---------- */}
       <section className="relative h-[100svh] min-h-[620px]">
-        <Current />
+        <Current school />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_20%_90%,rgba(6,8,10,0.92),transparent_60%)]" />
 
         <header className="absolute inset-x-0 top-0 z-10 flex items-center justify-between px-5 py-5 md:px-10">
           <a href="#" className="font-serif text-xl italic">
-            driftlings<span className="text-glow">.</span>
+            shoal<span className="text-glow">.</span>
           </a>
           <nav className="hidden gap-8 text-sm text-dim md:flex">
             <a href="#school" className="hover:text-paper">The school</a>
             <a href="#write" className="hover:text-paper">Write a current</a>
             <a href="#log" className="hover:text-paper">Tide log</a>
-            <a href="#drift" className="hover:text-paper">$DRIFT</a>
+            <a href="#drift" className="hover:text-paper">$SHOAL</a>
             <a href="/docs" className="hover:text-paper">Docs</a>
             <a href={GITHUB} target="_blank" rel="noreferrer" className="hover:text-paper">GitHub</a>
           </nav>
@@ -70,7 +70,7 @@ export default function Home() {
             </svg>
           </h1>
           <p className="mt-6 max-w-md text-lg text-paper/75">
-            A Driftling is a tiny trading agent with its own wallet. You write the current it swims in. It never
+            Each Shoal fish is a tiny trading agent with its own wallet. You write the current it swims in. It never
             leaves the water you drew.
           </p>
         </div>
@@ -87,7 +87,7 @@ export default function Home() {
             Every one is <em>a little different.</em>
           </h2>
           <p className="max-w-xs text-dim">
-            Each Driftling is born with a temperament, the waters it likes and how hard it swims. You can change the
+            Each fish is born with a temperament, the waters it likes and how hard it swims. You can change the
             current. You can’t change its nature.
           </p>
         </div>
@@ -129,7 +129,7 @@ export default function Home() {
             The tide <em>log.</em>
           </h2>
           <p className="mt-5 max-w-sm text-dim">
-            Every move, and every move it <em>didn’t</em> make, floats up with its reason. A Driftling that says no
+            Every move, and every move it <em>didn’t</em> make, floats up with its reason. A fish that says no
             is doing its job.
           </p>
         </div>
@@ -160,7 +160,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ---------- $DRIFT ---------- */}
+      {/* ---------- $SHOAL ---------- */}
       <section id="drift" className="relative isolate overflow-hidden border-t border-faint/40">
         <div className="absolute inset-0 -z-10 opacity-60">
           <Current />
@@ -169,7 +169,7 @@ export default function Home() {
         <div className="mx-auto grid max-w-6xl items-center gap-14 px-5 py-28 md:grid-cols-[1.1fr_1fr] md:px-10 md:py-40">
           <div>
             <p className="font-serif text-[clamp(5rem,15vw,12rem)] leading-[0.85] font-extralight italic">
-              $DRIFT
+              $SHOAL
             </p>
             <div className="mt-8 inline-flex items-center gap-3 rounded-full border border-glow/30 py-2 pr-5 pl-2">
               <span className="relative flex size-6 items-center justify-center rounded-full bg-glow/10">
@@ -181,8 +181,8 @@ export default function Home() {
           </div>
           <div>
             <p className="font-serif text-2xl leading-snug font-light">
-              The school’s token. A small fee on what Driftlings trade flows back to the school, and early keepers of a
-              specimen get a share of the first $DRIFT.
+              The school’s token. A small fee on what the fish trade flows back to the school, and early keepers of a
+              specimen get a share of the first $SHOAL.
             </p>
             <div className="mt-10 grid grid-cols-3 gap-4 text-center">
               {[
@@ -231,7 +231,7 @@ export default function Home() {
       <footer className="border-t border-faint/40 px-5 py-10 md:px-10">
         <div className="mx-auto flex max-w-6xl flex-wrap items-end justify-between gap-6">
           <p className="font-serif text-3xl italic">
-            driftlings<span className="text-glow">.</span>
+            shoal<span className="text-glow">.</span>
           </p>
           <nav className="flex gap-6 font-serif text-lg italic">
             <a href={SITE} className="hover:text-glow">Website ↗</a>

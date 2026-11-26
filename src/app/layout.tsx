@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Driftlings — small minds, strong currents",
+  title: "Shoal — small minds, strong currents",
   description:
-    "Driftlings are tiny trading agents that only swim where you let them. Write the current, set the shore, watch them go.",
+    "Shoal is a school of tiny trading agents that only swim where you let them. Write the current, set the shore, watch them go.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
